@@ -1,0 +1,12 @@
+{
+  "name": "mail-app",
+  "version": "0.0.1",
+  "description": "mail app",
+  "main": "index.js",
+  "author": "aprok",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "request": "^2.88.0"
+  }
+}

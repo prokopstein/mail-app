@@ -1,0 +1,21 @@
+{
+  "providers": [{
+      "name": "mailgun",
+      "path": "./providers/mailgun/mailgun",
+      "config": {
+        "url": "https://api.mailgun.net/v3",
+        "domain": "sandboxd28dcc8109bb473cb344a971f6f82f00.mailgun.org",
+        "key": "",
+        "from": "from-mailgun@mailapp.com"
+      }
+    }, {
+      "name": "sendgrid",
+      "path": "./providers/sendgrid/sendgrid",
+      "config": {
+        "url": "https://api.sendgrid.com/v3",
+        "key": "",
+        "from": "from-sendgrid@mailapp.com"
+      }
+    }
+  ]
+}

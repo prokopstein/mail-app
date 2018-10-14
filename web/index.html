@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <script>
+      $(document).ready(function() {
+        $('#send').click(function() {
+          $.post('/sendMail', $("form").serialize())
+            .done((res) => {
+              $('#alert-text-s').html(res.result);
+              $('#alert-s').show();
+            })
+            .fail((jqXHR) => {
+              var err = 'Something went wrong. Pleasy try again later...';
+			  if (jqXHR.responseJSON && jqXHR.responseJSON.error) err = jqXHR.responseJSON.error;
+
+              $('#alert-text-f').html(err);
+              $('#alert-f').show();
+            })
+            .always(() => {
+              setTimeout(() => {
+                $('#alert-s').hide();
+                $('#alert-f').hide();
+              }, 5000);
+            });
+        });
+      });
+    </script>
+
+    <title>You've got email</title>
+  </head>
+  <body>
+    <div class="container">
+      <br/>
+      <div class="row">
+        <div class="col-12">
+          <h1 class="text-center">Send an email</h1>
+        </div>
+      </div>
+      <br/>
+      <div id="alert-s" class="alert alert-success" role="alert" style="display:none;">
+        <div id="alert-text-s">Email has been sent</div>
+      </div>
+      <div id="alert-f" class="alert alert-danger" role="alert" style="display:none;">
+        <div id="alert-text-f">An error occured</div>
+      </div>
+      <br/>
+      <form>
+        <div class="form-group">
+          <label for="to">To</label>
+          <input name="to" type="input" class="form-control" id="to" placeholder="Enter to recipient(s)">
+        </div>
+        <div class="form-group">
+          <label for="cc">Cc</label>
+          <input name="cc" type="input" class="form-control" id="cc" placeholder="Enter cc recipient(s)">
+        </div>
+        <div class="form-group">
+          <label for="bcc">Bcc</label>
+          <input name="bcc" type="input" class="form-control" id="bcc" placeholder="Enter bcc recipient(s)">
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input name="subject" type="input" class="form-control" id="subject" placeholder="Enter subject">
+        </div>
+        <div class="form-group">
+          <label for="content">Content</label>
+          <textarea name="content" class="form-control" id="content" rows="10"></textarea>
+        </div>
+        <button id="send" type="button" class="btn btn-primary">Send email</button>
+      </form>
+    </div>
+  </body>
+</html>
